@@ -13,16 +13,17 @@ export class SinglyLinkedList {
   }
 
   push(val) {
-    const node = new Node(val);
+    const newNode = new Node(val);
 
     if (!this._head) {
-      this._head = node;
-      this._tail = node;
-    } else {
-      this._tail.next = node;
-      this._tail = node;
+      this._head = newNode;
     }
 
+    if (this._tail) {
+      this._tail.next = newNode;
+    }
+    
+    this._tail = newNode;
     this._length++;
     return this;
   }
@@ -104,15 +105,15 @@ export class SinglyLinkedList {
 
   insert(index, val) {
     if (index < 0 || index > this._length) {
-      return false;
+      return null;
     }
 
     if (index === 0) {
-      return !!this.unshift(val);
+      return this.unshift(val);
     }
 
     if (index === this._length) {
-      return !!this.push(val);
+      return this.push(val);
     }
 
     const node = new Node(val);
@@ -121,7 +122,7 @@ export class SinglyLinkedList {
     prev.next = node;
     this._length++;
 
-    return true;
+    return this;
   }
 
   remove(index) {
