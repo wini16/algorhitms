@@ -9,105 +9,105 @@ class El {
 }
 
 class DoublyLinkedList {
-  private _head: El | null;
-  private _tail: El | null;
-  private _length: number;
+  public head: El | null;
+  public tail: El | null;
+  public length: number;
 
   constructor() {
-    this._head = null;
-    this._tail = null;
-    this._length = 0;
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
   }
 
   push(val: any) {
     const newNode = new El(val);
 
-    if (!this._head) {
-      this._head = newNode;
+    if (!this.head) {
+      this.head = newNode;
     }
 
-    if (this._tail) {
-      this._tail.next = newNode;
-      newNode.prev = this._tail;
+    if (this.tail) {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
     }
 
-    this._tail = newNode;
-    this._length++;
+    this.tail = newNode;
+    this.length++;
     return this;
   }
 
   pop() {
-    if (!this._length) {
+    if (!this.length) {
       return null;
     }
 
-    const popped = <El>this._tail;
-    this._tail = popped.prev;
+    const popped = <El>this.tail;
+    this.tail = popped.prev;
     popped.prev = null;
     
-    if (!this._tail) {
-      this._head = null;
+    if (!this.tail) {
+      this.head = null;
     } else {
-      this._tail.next = null;
+      this.tail.next = null;
     }
 
-    this._length--;
+    this.length--;
     return popped;
   }
 
   shift() {
-    if (!this._length) {
+    if (!this.length) {
       return null;
     }
 
-    const removed = <El>this._head;
-    this._head = <El>removed.next;
+    const removed = <El>this.head;
+    this.head = <El>removed.next;
     
-    if (this._length === 1) {
-      this._tail = null;
+    if (this.length === 1) {
+      this.tail = null;
     } else {
-      this._head.prev = null;
+      this.head.prev = null;
     }
     
     removed.next = null;
-    this._length--;
+    this.length--;
     return removed;
   }
 
   unshift(val: any) {
     const newNode = new El(val);
 
-    if (this._length) {
-      newNode.next = this._head;
-      this._head!.prev = newNode;
+    if (this.length) {
+      newNode.next = this.head;
+      this.head!.prev = newNode;
     } else {
-      this._tail = newNode;
+      this.tail = newNode;
     }
     
-    this._head = newNode;
-    this._length++;
+    this.head = newNode;
+    this.length++;
     return this;
   }
 
   get(index: number) {
-    if (index < 0 || index >= this._length) {
+    if (index < 0 || index >= this.length) {
       return null;
     }
 
-    const half = Math.floor(this._length / 2);
+    const half = Math.floor(this.length / 2);
     let i: number;
     let val: El;
 
     if (index <= half) {
       i = 0;
-      val = <El>this._head;
+      val = <El>this.head;
       while (i !== index) {
         val = <El>val.next;
         i++;
       }
     } else {
-      i = this._length - 1;
-      val = <El>this._tail;
+      i = this.length - 1;
+      val = <El>this.tail;
       while (i !== index) {
         val = <El>val.prev;
         i--;
@@ -128,7 +128,7 @@ class DoublyLinkedList {
   }
 
   insert(index: number, val: any) {
-    if (index < 0 || index > this._length) {
+    if (index < 0 || index > this.length) {
       return null;
     }
 
@@ -136,7 +136,7 @@ class DoublyLinkedList {
       return this.unshift(val);
     }
 
-    if (index === this._length) {
+    if (index === this.length) {
       return this.push(val);
     }
 
@@ -150,12 +150,12 @@ class DoublyLinkedList {
     newNode.next = oldNode;
     oldNode.prev = newNode;
 
-    this._length++;
+    this.length++;
     return this;
   }
 
   remove(index: number) {
-    if (index < 0 || index >= this._length) {
+    if (index < 0 || index >= this.length) {
       return null;
     }
 
@@ -163,7 +163,7 @@ class DoublyLinkedList {
       return this.shift();
     }
 
-    if (index === this._length - 1) {
+    if (index === this.length - 1) {
       return this.pop();
     }
 
@@ -177,9 +177,7 @@ class DoublyLinkedList {
     removed.prev = null;
     removed.next = null;
 
-    this._length--;
+    this.length--;
     return removed;
   }
 }
-
-const list = new DoublyLinkedList();
