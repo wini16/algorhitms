@@ -79,8 +79,7 @@ class DoublyLinkedList {
 
     if (this._length) {
       newNode.next = this._head;
-      // @ts-ignore: Object is possibly null
-      this._head.prev = newNode;
+      this._head!.prev = newNode;
     } else {
       this._tail = newNode;
     }
@@ -141,34 +140,46 @@ class DoublyLinkedList {
       return this.push(val);
     }
 
-    const oldNode = this.get(index);
+    const newNode = new El(val);
+    const oldNode = <El>this.get(index);
+    const prev = <El>oldNode.prev;
 
-    if (oldNode) {
-      const newNode = new El(val);
-      newNode.prev = oldNode.prev;
-      newNode.next = oldNode;
-      oldNode.prev = newNode;
+    newNode.prev = prev;
+    prev.next = newNode;
 
-      if (newNode.prev) {
-        newNode.prev.next = newNode;
-      }
+    newNode.next = oldNode;
+    oldNode.prev = newNode;
 
-      this._length++;
-      return this;
+    this._length++;
+    return this;
+  }
+
+  remove(index: number) {
+    if (index < 0 || index >= this._length) {
+      return null;
     }
+
+    if (index === 0) {
+      return this.shift();
+    }
+
+    if (index === this._length - 1) {
+      return this.pop();
+    }
+
+    const removed = <El>this.get(index);
+    const prev = <El>removed.prev;
+    const next = <El>removed.next;
+
+    prev.next = next;
+    next.prev = prev;
+
+    removed.prev = null;
+    removed.next = null;
+
+    this._length--;
+    return removed;
   }
 }
 
 const list = new DoublyLinkedList();
-
-list.push(0);
-list.push(1);
-list.push(2);
-// list.push(3);
-// list.push(4);
-// list.push(5);
-// list.push(6);
-// list.push(7);
-console.log(list.get(1));
-list.insert(1, 'dupa');
-console.log(list.get(1));
