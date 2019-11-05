@@ -180,4 +180,23 @@ class DoublyLinkedList {
     this.length--;
     return removed;
   }
+
+  reverse() {    
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+
+    let next = null;
+    let prev = null;
+
+    while (node) {
+      next = node.next;
+      node.next = prev;
+      node.prev = next;
+      prev = node;
+      node = next;
+    }
+
+    return this;
+  }
 }
