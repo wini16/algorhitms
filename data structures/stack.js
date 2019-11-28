@@ -22,7 +22,7 @@ class Stack {
     prev.next = null;
     this.length--;
 
-    return prev;
+    return prev.value;
   }
 
   push(val) {
