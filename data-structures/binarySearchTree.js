@@ -60,6 +60,101 @@ class BinarySearchTree {
   find(value) {
     return checkFind(value, this.root);
   }
+
+  BFS() {
+    if (!this.root) {
+      return [];
+    }
+    
+    const queue = [];
+    const visited = [];
+
+    queue.push(this.root);
+
+    while (queue.length) {
+      const visiting = queue.shift();
+      visited.push(visiting);
+
+      if (visiting.left) {
+        queue.push(visiting.left);
+      }
+
+      if (visiting.right) {
+        queue.push(visiting.right);
+      }
+    }
+
+    return visited;
+  }
+
+  preOrder() {
+    if (!this.root) {
+      return [];
+    }
+    const visited = [];
+
+    function traverse(node) {
+      visited.push(node.value);
+
+      if (node.left) {
+        traverse(node.left);
+      }
+
+      if (node.right) {
+        traverse(node.right);
+      }
+    }
+
+    traverse(this.root);
+
+    return visited;
+  }
+
+  postOrder() {
+    if (!this.root) {
+      return [];
+    }
+    const visited = [];
+
+    function traverse(node) {
+      if (node.left) {
+        traverse(node.left);
+      }
+
+      if (node.right) {
+        traverse(node.right);
+      }
+      
+      visited.push(node.value);
+    }
+
+    traverse(this.root);
+
+    return visited;
+  }
+
+  inOrder() {
+    if (!this.root) {
+      return [];
+    }
+    const visited = [];
+
+    function traverse(node) {
+      if (node.left) {
+        traverse(node.left);
+      }
+
+      visited.push(node.value);
+
+      if (node.right) {
+        traverse(node.right);
+      }
+    }
+
+    traverse(this.root);
+
+    return visited;
+  }
 }
 
 var bst = new BinarySearchTree();
@@ -72,3 +167,5 @@ bst.insert(12);
 bst.insert(20);
 bst.insert(1);
 bst.insert(19);
+
+console.log(bst.preOrder());
