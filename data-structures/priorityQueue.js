@@ -91,25 +91,4 @@ class PriorityQueue {
   }
 }
 
-const queue = new PriorityQueue();
-
-queue.insert(1, 5);
-queue.insert(2, 5);
-queue.insert(3, 4);
-queue.insert(4, 4);
-queue.insert(5, 3);
-queue.insert(6, 3);
-queue.insert(7, 2);
-queue.insert(8, 2);
-queue.insert(9, 1);
-queue.insert(10, 1);
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
-console.log(queue.pop());
+module.exports.PriorityQueue = PriorityQueue; 
